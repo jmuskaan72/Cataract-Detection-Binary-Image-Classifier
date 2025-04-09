@@ -138,6 +138,7 @@ streamlit run streamlit_app.py
 ## 📚 Reference
 
 - [Medical Imaging - Thresholding Techniques](https://pmc.ncbi.nlm.nih.gov/articles/PMC5977656/)
+- To know more in detail regarding this project, you can view the **project_documentation.pdf** attached. 
 
 ---
 
