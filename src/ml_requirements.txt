@@ -1,0 +1,28 @@
+# Data Handling
+pandas
+numpy
+
+# Visualization
+matplotlib
+plotly
+
+# Image Processing
+Pillow
+opencv-python
+
+# Deep Learning
+tensorflow==2.13.0
+
+# Image Augmentation
+kagglehub
+
+# API Framework (for deployment)
+fastapi
+uvicorn
+streamlit
+
+# File Upload Support
+python-multipart
+
+# Development
+jupyter

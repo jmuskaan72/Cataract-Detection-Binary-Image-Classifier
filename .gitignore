@@ -1,0 +1,5 @@
+ml_env/
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/models/best_model_v2_vgg16.h5
