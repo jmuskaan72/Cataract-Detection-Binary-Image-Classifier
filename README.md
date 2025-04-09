@@ -31,6 +31,9 @@ This project is a deep learning-based solution for classifying eye images into t
 ---
 
 ## 📊 Dataset Overview
+```bash 
+notebooks/data_preprocess.ipynb
+```
 
 - **Training Set:** 491 images (`cataract`, `normal`)
 - **Testing Set:** 121 images (`cataract`, `normal`)
@@ -51,7 +54,10 @@ Applied with `ImageDataGenerator`:
 - Rescale pixel values to `[0,1]`
 ---
 
-## 🧠 Model Training (`src/model.py`)
+## 🧠 Model Training 
+```bash 
+src/model.py
+```
 
 - **Base Model:** VGG16 with transfer learning
 - **Fine-tuning:** Last few layers, 10 additional epochs
@@ -59,9 +65,16 @@ Applied with `ImageDataGenerator`:
 - **Callbacks:** Early stopping, model checkpoint
 - **Label smoothing** for handling noisy labels
 
+To download the V6G-16 model trained, as to run for the API: 
+- Visit the [Google Drive link](https://drive.google.com/file/d/1pXU4_rxYQxEvs5hXBQu7UO0qzkmim6Gw/view?usp=sharing)
+- filename - *best_model_v2_vgg16.h5*
+
 ---
 
-## 📈 Evaluation (`notebooks/evaluation_test.ipynb`)
+## 📈 Evaluation 
+```bash 
+notebooks/evaluation_test.ipynb
+```
 
 - **Test Accuracy:** 99.95%
 - **Precision:** 93.75%
@@ -78,8 +91,12 @@ Applied with `ImageDataGenerator`:
 
 ## 🚀 Deployment
 
-### FastAPI Backend (`api/main.py`)
-- Loads model `best_model_v2_vgg16.h5`
+### FastAPI Backend 
+```bash 
+api/main.py
+```
+
+- Loads model `models/best_model_v2_vgg16.h5`
 - Preprocesses image (resize to 224x224, normalize)
 - API Endpoint: `POST /predict/`
 - Returns:
@@ -99,7 +116,11 @@ curl -X 'POST' \
   -F 'file=@image_253.png;type=image/png'
 ```
 
-### Streamlit UI (`api/streamlit_app.py`)
+### Streamlit UI 
+```bash 
+api/streamlit_app.py
+```
+
 - Upload image or test with sample images
 - Interacts with FastAPI backend
 - Displays prediction label and confidence %
