@@ -6,7 +6,7 @@ import tensorflow as tf
 import io
 
 # Load the trained model
-model = tf.keras.models.load_model("/Users/muskaan2/ML_Dev/models/best_model_v2_vgg16.h5")
+model = tf.keras.models.load_model("models/best_model_v2_vgg16.h5")
 app = FastAPI()
 
 # Image preprocessing function (adjust as per your model input)
