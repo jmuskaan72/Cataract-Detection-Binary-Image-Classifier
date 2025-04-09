@@ -2,6 +2,7 @@
 This project is a deep learning-based solution for classifying eye images into two categories: **Cataract** and **Normal**. It includes data preprocessing, model training using transfer learning, evaluation, and deployment using FastAPI and Streamlit.
 
 ---
+![Alt Text](api/cataract_detect_output.png)
 
 ## 📂 Project Structure
 
