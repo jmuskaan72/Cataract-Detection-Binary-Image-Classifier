@@ -66,9 +66,17 @@ src/model.py
 - **Callbacks:** Early stopping, model checkpoint
 - **Label smoothing** for handling noisy labels
 
-To download the V6G-16 model trained, as to run for the API: 
+Why VGG16? 
+- Pre-trained on ImageNet, has 138M params in total. 
+- Useful in medical use cases where data is limited or hard to label.
+- Helps it learn low-level features like edges, shapes, and textures, which are often transferable to medical imaging (e.g. eye textures, cloudiness in cataract cases).
+- VGG16, when used with transfer learning + data augmentation, performs well even with limited data.
+
+
+To download the V6G-16 model trained, so as to run for the API: 
 - Visit the [Google Drive link](https://drive.google.com/file/d/1pXU4_rxYQxEvs5hXBQu7UO0qzkmim6Gw/view?usp=sharing)
 - filename - *best_model_v2_vgg16.h5*
+- Make sure to store it in models/ folder path for utilisation. 
 
 ---
 
