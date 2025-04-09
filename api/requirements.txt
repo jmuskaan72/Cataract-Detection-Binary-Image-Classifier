@@ -1,0 +1,8 @@
+# API Framework (for deployment)
+fastapi==0.110.1
+uvicorn==0.29.0
+tensorflow==2.15.0
+Pillow==10.2.0
+numpy==1.26.4
+streamlit==1.32.2
+requests==2.31.0
