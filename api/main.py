@@ -23,7 +23,7 @@ async def predict(file: UploadFile = File(...)):
         contents = await file.read()
         image = preprocess_image(contents)
         prediction = model.predict(image)[0][0]
-        #optimal threshold set at 0.6
+        #optimal threshold set at 0.65
         result = "Cataract" if prediction < 0.65 else "Normal"
         confidence = round(float(1 - prediction if result == "Cataract" else prediction)*100, 2)
         return JSONResponse(content={"prediction": result, "confidence": confidence})
