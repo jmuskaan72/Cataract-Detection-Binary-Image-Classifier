@@ -68,7 +68,7 @@ def plot_combined_distribution():
 
 def train_test_generators():
     # Define the optimal data augmentation parameters for cataract detection
-    train_datagen = ImageDataGenerator(
+    train_val_datagen = ImageDataGenerator(
             rescale=1./255,
             rotation_range=10,               # Subtle rotations (±10°)
             width_shift_range=0.1,           # Minor horizontal translations (10%)
@@ -77,6 +77,7 @@ def train_test_generators():
             zoom_range=0.1,                  # Slight zoom variations (±10%)
             horizontal_flip=True,            # Horizontal flips are anatomically valid
             fill_mode='nearest',             # Fill mode for any empty pixels after transformations
+            validation_split=0.2             # train-val split ratio
         )
 
     # Initialize the ImageDataGenerator for testing (without augmentation)
@@ -85,13 +86,23 @@ def train_test_generators():
     #define batch size
     batch_size = 32
 
-    # Create training and testing data generators
+    # Create training, val and testing data generators
     print("Training Categories Labelled as:", os.listdir(train_filepath))
-    train_generator = train_datagen.flow_from_directory(
+    train_generator = train_val_datagen.flow_from_directory(
         train_filepath,
         target_size=(224, 224),
         batch_size=batch_size,
-        class_mode='binary'
+        class_mode='binary',
+        subset='training'
+    )
+
+    # Validation generator
+    val_generator = train_val_datagen.flow_from_directory(
+        train_filepath,
+        target_size=(224, 224),
+        batch_size=batch_size,
+        class_mode='binary',
+        subset='validation'  
     )
 
     print("\nTesting Categories Labelled as:", os.listdir(test_filepath))
@@ -105,7 +116,7 @@ def train_test_generators():
 
     # After creating your train_generator
     print("\nClass indices mapping:", train_generator.class_indices)
-    return train_generator, test_generator
+    return train_generator, val_generator, test_generator
 
 # Display sample images for both categories
 # print("Sample Normal Images:")
