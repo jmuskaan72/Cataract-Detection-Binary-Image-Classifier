@@ -6,7 +6,7 @@ import tensorflow as tf
 import io
 
 # Load the trained model
-model = tf.keras.models.load_model("models/best_model_v2_vgg16.h5")
+model = tf.keras.models.load_model("models/best_model_vgg16_v3.h5")
 app = FastAPI()
 
 # Image preprocessing function (adjust as per your model input)
@@ -24,7 +24,7 @@ async def predict(file: UploadFile = File(...)):
         image = preprocess_image(contents)
         prediction = model.predict(image)[0][0]
         #optimal threshold set at 0.6
-        result = "Cataract" if prediction < 0.6 else "Normal"
+        result = "Cataract" if prediction < 0.65 else "Normal"
         confidence = round(float(1 - prediction if result == "Cataract" else prediction)*100, 2)
         return JSONResponse(content={"prediction": result, "confidence": confidence})
     except Exception as e:
