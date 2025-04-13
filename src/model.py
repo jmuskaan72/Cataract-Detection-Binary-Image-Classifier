@@ -54,7 +54,7 @@ def train_model_VGG16(train_generator, val_generator):
 
     # Define callbacks
     early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
-    model_checkpoint = ModelCheckpoint('/Users/muskaan2/ML_Dev/models/best_model_vgg16_v3.h5', monitor='val_loss', save_best_only=True)
+    model_checkpoint = ModelCheckpoint('models/best_model_vgg16_v3.h5', monitor='val_loss', save_best_only=True)
 
     # Train the model with frozen base layers
     history = model.fit(
@@ -65,7 +65,7 @@ def train_model_VGG16(train_generator, val_generator):
     )
 
     # Load the best model from training
-    model.load_weights('/Users/muskaan2/ML_Dev/models/best_model_vgg16_v3.h5')
+    model.load_weights('models/best_model_vgg16_v3.h5')
 
     # Fine-tune the model: Unfreeze the last few layers of the base model
     for layer in base_model.layers[-4:]:
@@ -92,7 +92,7 @@ def train_model_VGG16(train_generator, val_generator):
     )
 
     # Save the final model (architecture + weights) in .h5 format
-    final_model_path = '/Users/muskaan2/ML_Dev/models/final_model_vgg16_v3.h5'
+    final_model_path = 'models/final_model_vgg16_v3.h5'
     model.save(final_model_path)
 
     return history_fine_tuning, model
@@ -129,7 +129,7 @@ def train_model_EfficientNet(train_generator, val_generator):
 
     # Define callbacks
     early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
-    model_checkpoint = ModelCheckpoint('/Users/muskaan2/ML_Dev/models/best_model_efficientnet.h5', monitor='val_loss', save_best_only=True)
+    model_checkpoint = ModelCheckpoint('models/best_model_efficientnet.h5', monitor='val_loss', save_best_only=True)
 
     # Train the model with frozen base layers
     history = model.fit(
@@ -140,7 +140,7 @@ def train_model_EfficientNet(train_generator, val_generator):
     )
 
     # # Load best weights
-    # model.load_weights('/Users/muskaan2/ML_Dev/models/best_model_efficientnet.h5')
+    # model.load_weights('models/best_model_efficientnet.h5')
 
     # # Fine-tune the model by unfreezing last few layers
     # for layer in base_model.layers[-4:]:
@@ -167,7 +167,7 @@ def train_model_EfficientNet(train_generator, val_generator):
     # )
 
     # # Save final model
-    # final_model_path = '/Users/muskaan2/ML_Dev/models/final_model_efficientnet.h5'
+    # final_model_path = 'models/final_model_efficientnet.h5'
     # model.save(final_model_path)
 
     return history, model
