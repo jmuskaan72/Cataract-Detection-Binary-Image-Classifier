@@ -22,7 +22,7 @@ This project is a deep learning-based solution for classifying eye images into t
 │   └── model.py                    # Model training script
 │   └── ml_requirements.txt         # Model training script
 ├── models/
-│   └── best_model_v2_vgg16.h5      # Trained VGG16 model
+│   └── best_model_vgg16_v3.h5      # Trained VGG-16 model
 ├── api/
 │   ├── main.py                     # FastAPI app
 │   └── streamlit_app.py            # Streamlit frontend
@@ -53,6 +53,7 @@ Applied with `ImageDataGenerator`:
 - Brightness adjustment (±15%)
 - Horizontal flip (valid in medical context)
 - Rescale pixel values to `[0,1]`
+- Train validation split ratio - 0.2
 ---
 
 ## 🧠 Model Training 
@@ -74,9 +75,11 @@ Why VGG16?
 
 
 To download the V6G-16 model trained, so as to run for the API: 
-- Visit the [Google Drive link](https://drive.google.com/file/d/1pXU4_rxYQxEvs5hXBQu7UO0qzkmim6Gw/view?usp=sharing)
-- filename - *best_model_v2_vgg16.h5*
-- Make sure to store it in models/ folder path for utilisation. 
+- Visit the [Google Drive link](https://drive.google.com/drive/folders/1kNwYlXyL98J1KmRBZ6ihmZdXbCX4l7QY?usp=sharing)
+- filename - *best_model_vgg16_v3.h5*
+- Make sure to store it in models/ folder path for utilisation.
+
+<img src="src/train_val_model_performance.png" alt="Training \& Validation Model Accuracy-Loss Plot" width="700"/>
 
 ---
 
@@ -86,15 +89,29 @@ notebooks/evaluation_test.ipynb
 ```
 
 - **Test Accuracy:** 99.95%
-- **Precision:** 93.75%
-- **Recall:** 100.00%
-- **AUC:** 96.69%
-- **Optimal Threshold:** `0.60`
-  - F1-score: `0.9836`
-  - Precision: `0.9677`
-  - Recall: `1.0000`
-- **Confusion Matrix:** Only 2 false negatives, no false positives for `normal`
-- **ROC Curve:** AUC = 1.00
+- **Precision:** 92.19%
+- **Recall:** 98.33%
+- **AUC:** 95.04%
+- **Optimal Threshold:** `0.65`
+  - F1-score: `0.9672`
+  - Precision: `0.9516`
+  - Recall: `0.9833`
+### 📊 Classification Report:
+| Class      | Precision | Recall | F1-score | Support |
+|------------|-----------|--------|----------|---------|
+| Cataract   | 0.98      | 0.95   | 0.97     | 61      |
+| Normal     | 0.95      | 0.98   | 0.97     | 60      |
+| **Accuracy**   |           |        | **0.97**     | **121**    |
+| **Macro Avg** | 0.97      | 0.97   | 0.97     | 121     |
+| **Weighted Avg** | 0.97  | 0.97   | 0.97     | 121     |
+
+- **Confusion Matrix:** Very low false positive/negative rates, which is especially important in medical diagnostics. Missing a cataract could be risky, so a high recall is good.
+  
+  <img src="notebooks/confusion_matrix.png" alt="Confusion Matrix" width="400"/>
+
+- **ROC Curve:** The orange curve nearly touches the top-left corner, which means the model is perfectly distinguishing between the classes.
+  
+  <img src="notebooks/roc_output.png" alt="Confusion Matrix" width="400"/>
 
 ---
 
@@ -105,7 +122,7 @@ notebooks/evaluation_test.ipynb
 api/main.py
 ```
 
-- Loads model `models/best_model_v2_vgg16.h5`
+- Loads model `models/best_model_vgg16_v3.h5`
 - Preprocesses image (resize to 224x224, normalize)
 - API Endpoint: `POST /predict/`
 - Returns:
